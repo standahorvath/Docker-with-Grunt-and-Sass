@@ -1,0 +1,341 @@
+/*
+    Author     : Standa Horváth
+*/
+
+@mixin placeholder {
+  &.placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
+/* Prefix mixins */
+@mixin transition($transition...) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
+}
+
+@mixin transition-property($property...) {
+  -moz-transition-property: $property;
+  -o-transition-property: $property;
+  -webkit-transition-property: $property;
+  transition-property: $property;
+}
+
+@mixin transition-duration($duration...) {
+  -moz-transition-property: $duration;
+  -o-transition-property: $duration;
+  -webkit-transition-property: $duration;
+  transition-property: $duration;
+}
+
+@mixin transition-timing-function($timing...) {
+  -moz-transition-timing-function: $timing;
+  -o-transition-timing-function: $timing;
+  -webkit-transition-timing-function: $timing;
+  transition-timing-function: $timing;
+}
+
+@mixin transition-delay($delay...) {
+  -moz-transition-delay: $delay;
+  -o-transition-delay: $delay;
+  -webkit-transition-delay: $delay;
+  transition-delay: $delay;
+}
+
+
+@mixin transform-origin ($origin) {
+  moz-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  -webkit-transform-origin: $origin;
+  transform-origin: $origin;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+// rotate
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+// scale
+@mixin scale($scale) {
+  @include transform(scale($scale));
+}
+
+// translate
+@mixin translate ($x, $y) {
+  @include transform(translate($x, $y));
+}
+
+// skew
+@mixin skew ($x, $y) {
+  @include transform(skew(#{$x}deg, #{$y}deg));
+}
+
+/* Center horizontal */
+@mixin absolute-center() {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+/* Middle vertical */
+@mixin absolute-middle() {
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+/* Triangle mixin */
+@mixin triangle($color, $direction, $size: 6px) {
+  @if $direction ==down {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+    margin-top: 0 - round($size / 2.5);
+  }
+
+  @else if $direction ==up {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+    margin-bottom: 0 - round($size / 2.5);
+  }
+
+  @else if $direction ==right {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+    margin-right: -$size;
+  }
+
+  @else if $direction ==left {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+    margin-left: -$size;
+  }
+}
+
+@mixin input-placeholder {
+  &.placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
+//variables
+$XS: 12.5em; // 200px;
+$S: 18.75em; // 300px
+$SM: 35em; // 560px
+$M: 47.5em; // 760px
+$L: 63em; // 1008px
+$XL: 110em; // 1760px
+$XXL: 180em; // 2880px
+
+//mixin
+@mixin MQ($canvas) {
+  @if $canvas ==XS {
+    @media only screen and (min-width: $XS) and (max-width: $S - 1) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==S {
+    @media only screen and (min-width: $S) and (max-width: $M - 1) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==M {
+    @media only screen and (min-width: $M) and (max-width: $L - 1) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==L {
+    @media only screen and (min-width: $L) and (max-width: $XL - .01) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==XL {
+    @media only screen and (min-width: $XL) and (max-width: $XXL - .01) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==XXL {
+    @media only screen and (min-width: $XXL) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==XSplus {
+    @media only screen and (min-width: $XS) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==Splus {
+    @media only screen and (min-width: $S) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==Mplus {
+    @media only screen and (min-width: $M) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==Lplus {
+    @media only screen and (min-width: $L) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==XLplus {
+    @media only screen and (min-width: $XL) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==XXLplus {
+    @media only screen and (min-width: $XXL) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==XSneg {
+    @media only screen and (max-width: $XS) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==Sneg {
+    @media only screen and (max-width: $S) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==Mneg {
+    @media only screen and (max-width: $M) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==Lneg {
+    @media only screen and (max-width: $L) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==XLneg {
+    @media only screen and (max-width: $XL) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==XXLneg {
+    @media only screen and (max-width: $XXL) {
+      @content;
+    }
+  }
+
+  @else if $canvas ==StoL {
+    @media only screen and (min-width: $S) and (max-width: $L - .01) {
+      @content;
+    }
+  }
+
+  @else {
+    @media only screen and (max-width: $canvas) {
+      @content;
+    }
+  }
+}
+
+@mixin font-size($fs-map) {
+
+  @each $fs-breakpoint,
+  $fs-font-size in $fs-map {
+    @if $fs-breakpoint ==null {
+      font-size: $fs-font-size;
+    }
+
+    @else {
+      @media screen and (max-width: $fs-breakpoint) {
+        font-size: $fs-font-size;
+      }
+    }
+  }
+}
+
+
+@mixin attr-map($attr, $fs-map) {
+
+  @each $fs-breakpoint,
+  $fs-font-size in $fs-map {
+    @if $fs-breakpoint ==null {
+      $attr: $fs-map;
+    }
+
+    @else {
+      @media screen and (max-width: $fs-breakpoint) {
+        $attr: $fs-map;
+      }
+    }
+  }
+}

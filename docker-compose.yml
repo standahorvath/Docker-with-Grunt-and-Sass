@@ -1,0 +1,15 @@
+version: '1.0'
+services:
+    frontend:
+        build:
+            context: ./
+            dockerfile: docker/dev/Dockerfile
+        container_name: frontend
+        working_dir: /home/node/app
+        ports:
+            - "3000:3000"
+        environment:
+            - NODE_ENV=development
+        volumes:
+            - ./:/home/node/app:delegated
+        command: sh -c "npm i && grunt"
